@@ -1,0 +1,190 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+*.mo
+*.pot
+instance/
+.webassets-cache
+.scrapy
+docs/_build/
+target/
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+.python-version
+.pyenv
+Pipfile.lock
+poetry.lock
+pdm.lock
+.pdm.toml
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Node.js / Next.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.next/
+out/
+.vercel
+.turbo
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+*.env
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.tmproj
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.sqlite-shm
+*.sqlite-wal
+
+# Cloudflare Wrangler
+.wrangler/
+wrangler.toml.backup
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Temporary files
+.agents
+.kiro
+.qoder
+.vscode
+*.tmp
+*.temp 
+.cache/
+.parcel-cache/
+
+# Build outputs
+dist/
+build/
+*.pyc
+*.pyo
+
+# Secrets and Keys
+*.pem
+*.key
+*.cert
+secrets.json
+credentials.json
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# ChromaDB / Vector DB
+chroma_db/
+*.chroma
+
+# MongoDB
+mongodb_data/
+
+# R2 / Object Storage
+.wrangler/state/
+
+# Misc
+.eslintcache
+.stylelintcache
+*.seed
+*.pid
+*.pid.lock
+.grunt
+bower_components
+.lock-wscript
+.npm
+.node_repl_history
+*.tgz
+.yarn-integrity
+.pnp.*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
