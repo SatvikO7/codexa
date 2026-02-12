@@ -1,0 +1,43 @@
+# FastAPI & Server
+fastapi==0.109.2
+uvicorn[standard]==0.27.1
+python-multipart==0.0.9
+
+# Database (MongoDB)
+motor==3.3.2
+beanie==1.25.0
+pymongo==4.6.1
+
+# Auth
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.1.2
+
+# AI & Embeddings
+openai==1.12.0
+tiktoken==0.6.0
+langchain==0.1.6
+langchain-openai==0.0.5
+chromadb==0.4.22
+
+# File Processing
+python-magic==0.4.27
+aiofiles==23.2.1
+
+# Cloud Storage (R2/S3)
+boto3==1.34.34
+aioboto3==12.3.0
+
+# Payments
+cashfree-pg==3.2.1
+
+# Utils
+python-dotenv==1.0.1
+pydantic==2.6.1
+pydantic-settings==2.1.0
+httpx==0.26.0
+redis==5.0.1
+celery==5.3.6
+
+# CORS
+starlette==0.36.3
