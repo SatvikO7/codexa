@@ -141,7 +141,7 @@ coverage/
 *.temp 
 .cache/
 .parcel-cache/
-
+create-git-history.ps1
 # Build outputs
 dist/
 build/
