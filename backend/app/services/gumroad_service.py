@@ -79,7 +79,7 @@ async def cancel_subscription(subscriber_id: str) -> bool:
 
 
 def get_checkout_url(tier: SubscriptionTier, user_email: str) -> str:
-    """Generate Gumroad checkout URL for a tier.
+    """Generate Gumroad checkout URL for a tier with redirect.
     
     Note: You need to create products in Gumroad dashboard first.
     """
@@ -87,8 +87,9 @@ def get_checkout_url(tier: SubscriptionTier, user_email: str) -> str:
     if not product_id:
         raise ValueError(f"No product ID configured for tier: {tier}")
     
-    # Gumroad checkout URL with prefilled email
-    return f"https://gumroad.com/l/{product_id}?email={user_email}"
+    # Gumroad checkout URL with prefilled email and redirect
+    redirect_url = f"{settings.FRONTEND_URL}/dashboard/billing?success=true&tier={tier.value}"
+    return f"https://gumroad.com/l/{product_id}?email={user_email}&wanted=true&redirect_url={redirect_url}"
 
 
 def get_tier_from_product_id(product_id: str) -> Optional[SubscriptionTier]:
