@@ -41,7 +41,7 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4 animate-fade-in">
             <Link
-              href="/signup"
+              href="/login"
               className="px-6 md:px-8 py-3 md:py-4 rounded-xl bg-[var(--accent)] text-white font-medium hover:bg-[var(--accent-hover)] transition-all hover:scale-105 animate-pulse-glow shadow-lg shadow-[var(--accent)]/30"
             >
               Start for Free
@@ -301,7 +301,7 @@ export default function Home() {
                   ))}
                 </ul>
                 <Link
-                  href="/signup"
+                  href="/login"
                   className={`block w-full py-3 rounded-xl text-center font-medium transition-all ${
                     plan.popular
                       ? "bg-white text-[var(--accent)] hover:bg-white/90"
@@ -376,7 +376,7 @@ export default function Home() {
               with Codexa.
             </p>
             <Link
-              href="/signup"
+              href="/login"
               className="inline-block px-8 py-4 rounded-xl bg-[var(--accent)] text-white font-medium hover:bg-[var(--accent-hover)] transition-all hover:scale-105"
             >
               Get Started Free

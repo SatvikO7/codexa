@@ -58,7 +58,7 @@ export default function Navbar() {
               alt="Codexa"
               width={260}
               height={72}
-              className="h-18 w-auto group-hover:scale-105 transition-transform"
+              className="h-18 w-auto group-hover:scale-105 transition-transform mb-3"
               priority
             />
           </Link>
@@ -81,6 +81,15 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
+                {user?.picture && (
+                  <Image
+                    src={user.picture}
+                    alt={user.name || user.email}
+                    width={32}
+                    height={32}
+                    className="rounded-full"
+                  />
+                )}
                 <Link
                   href="/dashboard"
                   className="flex items-center gap-2 px-4 py-2 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-all text-sm font-medium"
@@ -97,20 +106,12 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="px-4 py-2 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-all text-sm font-medium"
-                >
-                  Log in
-                </Link>
-                <Link
-                  href="/signup"
-                  className="px-5 py-2.5 rounded-lg bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)] transition-all text-sm font-medium shadow-lg shadow-[var(--accent)]/20"
-                >
-                  Get Started
-                </Link>
-              </>
+              <Link
+                href="/login"
+                className="px-5 py-2.5 rounded-lg bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)] transition-all text-sm font-medium shadow-lg shadow-[var(--accent)]/20"
+              >
+                Sign in with Google
+              </Link>
             )}
           </div>
 
@@ -165,22 +166,13 @@ export default function Navbar() {
                   </button>
                 </>
               ) : (
-                <>
-                  <Link
-                    href="/login"
-                    className="px-4 py-2.5 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-elevated)] transition-all text-sm font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Log in
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="px-4 py-2.5 rounded-lg bg-[var(--accent)] text-white text-center hover:bg-[var(--accent-hover)] transition-all text-sm font-medium"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Get Started
-                  </Link>
-                </>
+                <Link
+                  href="/login"
+                  className="px-4 py-2.5 rounded-lg bg-[var(--accent)] text-white text-center hover:bg-[var(--accent-hover)] transition-all text-sm font-medium"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Sign in with Google
+                </Link>
               )}
             </div>
           </div>

@@ -145,8 +145,8 @@ export default function DashboardPage() {
                     tokenPercentage > 90
                       ? "bg-[var(--error)]"
                       : tokenPercentage > 70
-                      ? "bg-[var(--warning)]"
-                      : "bg-[var(--accent)]"
+                        ? "bg-[var(--warning)]"
+                        : "bg-[var(--accent)]"
                   }`}
                   style={{ width: `${Math.min(tokenPercentage, 100)}%` }}
                 />
@@ -337,7 +337,7 @@ function UploadModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="glass rounded-2xl p-6 w-full max-w-md">
+      <div className="bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl p-6 w-full max-w-md">
         <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
           Upload Project
         </h2>
@@ -444,7 +444,7 @@ function FileModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="glass rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">
           Add Single File
         </h2>

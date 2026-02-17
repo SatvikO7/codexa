@@ -27,12 +27,17 @@ class SubscriptionStatus(str, Enum):
 class User(Document):
     id: str = Field(default_factory=generate_id)
     email: Indexed(EmailStr, unique=True)
-    hashed_password: str
+    hashed_password: Optional[str] = None  # Optional for OAuth users
     name: Optional[str] = None
     is_active: bool = True
     is_verified: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: Optional[datetime] = None
+    
+    # OAuth fields
+    oauth_provider: Optional[str] = None  # "google"
+    oauth_id: Optional[str] = None  # Google user ID
+    picture: Optional[str] = None  # Profile picture URL
     
     # Token usage tracking
     tokens_used_this_month: int = 0

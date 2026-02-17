@@ -28,6 +28,7 @@ class UserResponse(BaseModel):
     id: str
     email: str
     name: Optional[str]
+    picture: Optional[str] = None
     is_active: bool
     is_verified: bool
     tokens_used_this_month: int
