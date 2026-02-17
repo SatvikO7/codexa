@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import Cookies from "js-cookie";
 import { useAuthStore } from "@/lib/auth";
 
-export default function AuthCallbackPage() {
+function CallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { fetchUser } = useAuthStore();
@@ -49,3 +49,19 @@ export default function AuthCallbackPage() {
     </div>
   );
 }
+
+export default function AuthCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center">
+          <Loader2 className="w-12 h-12 animate-spin text-[var(--accent)]" />
+        </div>
+      }
+    >
+      <CallbackContent />
+    </Suspense>
+  );
+}
+
+export const dynamic = "force-dynamic";
