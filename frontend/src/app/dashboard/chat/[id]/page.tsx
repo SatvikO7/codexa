@@ -19,6 +19,9 @@ import {
   FileCode,
   FolderOpen,
   Zap,
+  AlertCircle,
+  X,
+  Clock,
 } from "lucide-react";
 import { projectsApi, chatApi } from "@/lib/api";
 import { formatNumber } from "@/lib/utils";
@@ -59,6 +62,10 @@ export default function ChatPage() {
   const [isSending, setIsSending] = useState(false);
   const [tokensRemaining, setTokensRemaining] = useState(0);
   const [showSidebar, setShowSidebar] = useState(true);
+  const [error, setError] = useState<{
+    type: "rate_limit" | "token_limit" | "general";
+    message: string;
+  } | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -107,6 +114,7 @@ export default function ChatPage() {
     const userMessage = input.trim();
     setInput("");
     setIsSending(true);
+    setError(null); // Clear previous errors
 
     // Optimistically add user message
     const tempUserMsg: Message = {
@@ -145,7 +153,31 @@ export default function ChatPage() {
       console.error("Failed to send message:", error);
       // Remove temp message on error
       setMessages((prev) => prev.slice(0, -1));
-      alert(error.response?.data?.detail || "Failed to send message");
+
+      const status = error.response?.status;
+      const detail = error.response?.data?.detail || "Failed to send message";
+
+      if (status === 429) {
+        setError({
+          type: "rate_limit",
+          message: detail,
+        });
+      } else if (status === 403) {
+        setError({
+          type: "token_limit",
+          message: detail,
+        });
+      } else {
+        setError({
+          type: "general",
+          message: detail,
+        });
+      }
+
+      // Auto-dismiss general errors after 5 seconds
+      if (status !== 429 && status !== 403) {
+        setTimeout(() => setError(null), 5000);
+      }
     } finally {
       setIsSending(false);
       inputRef.current?.focus();
@@ -225,6 +257,64 @@ export default function ChatPage() {
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col min-w-0">
+        {/* Error Banner */}
+        {error && (
+          <div
+            className={`px-4 py-3 border-b flex items-start gap-3 animate-fade-in ${
+              error.type === "rate_limit"
+                ? "bg-[var(--warning)]/10 border-[var(--warning)]/20"
+                : error.type === "token_limit"
+                  ? "bg-[var(--error)]/10 border-[var(--error)]/20"
+                  : "bg-[var(--error)]/10 border-[var(--error)]/20"
+            }`}
+          >
+            {error.type === "rate_limit" ? (
+              <Clock className="w-5 h-5 text-[var(--warning)] shrink-0 mt-0.5" />
+            ) : (
+              <AlertCircle
+                className={`w-5 h-5 shrink-0 mt-0.5 ${
+                  error.type === "token_limit"
+                    ? "text-[var(--error)]"
+                    : "text-[var(--error)]"
+                }`}
+              />
+            )}
+            <div className="flex-1 min-w-0">
+              <p
+                className={`text-sm font-medium ${
+                  error.type === "rate_limit"
+                    ? "text-[var(--warning)]"
+                    : "text-[var(--error)]"
+                }`}
+              >
+                {error.type === "rate_limit"
+                  ? "Rate Limit Reached"
+                  : error.type === "token_limit"
+                    ? "Token Limit Reached"
+                    : "Error"}
+              </p>
+              <p className="text-sm text-[var(--text-secondary)] mt-0.5">
+                {error.message}
+              </p>
+              {error.type === "token_limit" && (
+                <Link
+                  href="/dashboard/billing"
+                  className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 rounded-lg bg-[var(--accent)] text-white text-sm hover:bg-[var(--accent-hover)] transition-colors"
+                >
+                  <Zap className="w-3.5 h-3.5" />
+                  Upgrade Plan
+                </Link>
+              )}
+            </div>
+            <button
+              onClick={() => setError(null)}
+              className="p-1 rounded-lg hover:bg-black/10 transition-colors"
+            >
+              <X className="w-4 h-4 text-[var(--text-muted)]" />
+            </button>
+          </div>
+        )}
+
         {/* Chat Header */}
         <div className="px-4 py-3 border-b border-[var(--border)] flex items-center justify-between bg-[var(--bg-surface)]">
           <div className="flex items-center gap-3">
