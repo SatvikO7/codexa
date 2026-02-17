@@ -76,7 +76,7 @@ export const projectsApi = {
     const formData = new FormData();
     formData.append("file", file);
     return api.post(
-      `/projects/upload?name=${encodeURIComponent(name)}${
+      `/projects/upload-zip?name=${encodeURIComponent(name)}${
         description ? `&description=${encodeURIComponent(description)}` : ""
       }`,
       formData,

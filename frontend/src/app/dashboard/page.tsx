@@ -63,6 +63,13 @@ export default function DashboardPage() {
 
   useEffect(() => {
     fetchData();
+
+    // Auto-refresh every 5 seconds to check for processing status updates
+    const interval = setInterval(() => {
+      fetchData();
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, [fetchData]);
 
   const handleDelete = async (id: string) => {
@@ -317,6 +324,7 @@ function UploadModal({
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -324,14 +332,20 @@ function UploadModal({
 
     setIsUploading(true);
     setError("");
+    setUploadProgress(10);
 
     try {
       await projectsApi.uploadZip(name, file);
-      onSuccess();
+      setUploadProgress(100);
+
+      // Close modal and refresh - upload continues in background
+      setTimeout(() => {
+        onSuccess();
+      }, 500);
     } catch (err: any) {
       setError(err.response?.data?.detail || "Failed to upload project");
-    } finally {
       setIsUploading(false);
+      setUploadProgress(0);
     }
   };
 
@@ -360,7 +374,8 @@ function UploadModal({
               onChange={(e) => setName(e.target.value)}
               placeholder="My Project"
               required
-              className="w-full px-4 py-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)]"
+              disabled={isUploading}
+              className="w-full px-4 py-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] disabled:opacity-50"
             />
           </div>
 
@@ -374,7 +389,8 @@ function UploadModal({
                 accept=".zip"
                 onChange={(e) => setFile(e.target.files?.[0] || null)}
                 required
-                className="w-full px-4 py-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text-primary)] file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-[var(--accent)] file:text-white file:cursor-pointer"
+                disabled={isUploading}
+                className="w-full px-4 py-3 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] text-[var(--text-primary)] file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-[var(--accent)] file:text-white file:cursor-pointer disabled:opacity-50"
               />
             </div>
             <p className="text-xs text-[var(--text-muted)] mt-1">
@@ -383,13 +399,34 @@ function UploadModal({
             </p>
           </div>
 
+          {isUploading && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-[var(--text-secondary)]">
+                  Uploading...
+                </span>
+                <span className="text-[var(--accent)]">{uploadProgress}%</span>
+              </div>
+              <div className="h-2 rounded-full bg-[var(--bg-elevated)] overflow-hidden">
+                <div
+                  className="h-full bg-[var(--accent)] transition-all duration-300"
+                  style={{ width: `${uploadProgress}%` }}
+                />
+              </div>
+              <p className="text-xs text-[var(--text-muted)]">
+                Processing will continue in the background. You can close this
+                dialog.
+              </p>
+            </div>
+          )}
+
           <div className="flex gap-3 pt-2">
             <button
               type="button"
               onClick={onClose}
               className="flex-1 py-3 rounded-xl glass glass-hover text-[var(--text-primary)] transition-colors cursor-pointer"
             >
-              Cancel
+              {isUploading ? "Close" : "Cancel"}
             </button>
             <button
               type="submit"
