@@ -1,5 +1,5 @@
-Remove the payment system, make it opensource and free to use.
-Implement vectorless rag with OKF for better context of code
-Add both light and dark mode in UI
-Use Claymorphism in the UI 
-Build an automatic quick tour guide of site
+- Remove the payment system, make it opensource and free to use.
+- Implement vectorless rag with OKF for better context of code
+- Add both light and dark mode in UI
+- Use Claymorphism in the UI 
+- Build an automatic quick tour guide of site
