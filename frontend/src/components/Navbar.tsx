@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, LogOut, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/lib/auth";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -77,8 +78,9 @@ export default function Navbar() {
               ))}
           </div>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons & Controls */}
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 {user?.picture && (
@@ -115,17 +117,20 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-[var(--bg-elevated)] transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6 text-[var(--text-primary)]" />
-            ) : (
-              <Menu className="w-6 h-6 text-[var(--text-primary)]" />
-            )}
-          </button>
+          {/* Mobile Controls */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              className="p-2 rounded-lg hover:bg-[var(--bg-elevated)] transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6 text-[var(--text-primary)]" />
+              ) : (
+                <Menu className="w-6 h-6 text-[var(--text-primary)]" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}

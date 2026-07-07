@@ -14,6 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/lib/auth";
 import { useState } from "react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const sidebarLinks = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Projects" },
@@ -132,13 +133,16 @@ export default function DashboardLayout({
                 </p>
               </div>
             </div>
-            <button
-              onClick={logout}
-              className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-[var(--text-secondary)] hover:bg-[var(--error)]/10 hover:text-[var(--error)] transition-all text-sm font-medium"
-            >
-              <LogOut className="w-5 h-5" />
-              Sign out
-            </button>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <button
+                onClick={logout}
+                className="flex-1 flex items-center justify-center gap-3 px-4 py-3 rounded-xl text-[var(--text-secondary)] hover:bg-[var(--error)]/10 hover:text-[var(--error)] transition-all text-sm font-medium"
+              >
+                <LogOut className="w-5 h-5" />
+                Sign out
+              </button>
+            </div>
           </div>
         </div>
       </aside>
@@ -148,12 +152,15 @@ export default function DashboardLayout({
         {/* Mobile header */}
         <div className="lg:hidden sticky top-0 z-30 glass border-b border-[var(--border)] px-4 py-2 backdrop-blur-xl overflow-x-hidden">
           <div className="flex items-center justify-between">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="p-2 rounded-lg hover:bg-[var(--bg-elevated)] transition-colors"
-            >
-              <Menu className="w-6 h-6 text-[var(--text-primary)]" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="p-2 rounded-lg hover:bg-[var(--bg-elevated)] transition-colors"
+              >
+                <Menu className="w-6 h-6 text-[var(--text-primary)]" />
+              </button>
+              <ThemeToggle />
+            </div>
             <Image
               src="/fav.png"
               alt="Codexa"
